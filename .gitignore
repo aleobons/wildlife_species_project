@@ -1,2 +1,2 @@
-/data/train_features
-/data/test_features
+workdir/data/train_features/*
+workdir/data/test_features/*
