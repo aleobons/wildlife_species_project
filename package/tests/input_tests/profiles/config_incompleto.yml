@@ -1,0 +1,20 @@
+# Datasets
+COM_LABEL: False
+# IMAGES_PATH: /workspaces/wildlife_species_project/package/tests/input_tests/data/img
+
+# Fiftyone
+NOME_DATASET: dataset_test
+
+KEY_FIELD_CSV_LABEL: id
+KEY_FIELD_CSV_METADADOS: id
+
+KEY_DATASET_LABEL: filename
+KEY_DATASET_METADADOS: filepath
+
+PATH_LABELS: tests/input_tests/data/train_labels.csv
+PATH_METADADOS: tests/input_tests/data/train_features.csv
+
+TYPE_LABEL: labelencoder
+FIELD_LABEL: animal
+FIELD_METADADOS:
+  - site
