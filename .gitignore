@@ -1,2 +1,6 @@
 workdir/data/train_features/*
 workdir/data/test_features/*
+package/project.egg-info/*
+package/build/*
+package/dist/*
+*__pycache__*
