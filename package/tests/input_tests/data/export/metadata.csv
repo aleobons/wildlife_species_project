@@ -1,0 +1,4 @@
+filepath,filename,label,site,id_img
+/workspaces/wildlife_species_project/package/tests/input_tests/data/img/ZJ000001.jpg,monkey_prosimian/ZJ000001.jpg,monkey_prosimian,S0069,ZJ000001
+/workspaces/wildlife_species_project/package/tests/input_tests/data/img/ZJ000002.jpg,bird/ZJ000002.jpg,bird,S0009,ZJ000002
+/workspaces/wildlife_species_project/package/tests/input_tests/data/img/ZJ000003.jpg,monkey_prosimian/ZJ000003.jpg,monkey_prosimian,S0008,ZJ000003

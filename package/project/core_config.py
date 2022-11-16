@@ -1,14 +1,13 @@
 """
-Script para validar o config.yml e devolver um dicionário com as configurações
+Script to validation the config.yml and return a dictionary with the config values.
 """
-# from optparse import Option
 import os
 from pathlib import Path
 
 from configparser import ConfigParser
-from typing import Optional, List
+from typing import List
 
-from pydantic import BaseModel, validator, constr
+from pydantic import BaseModel, validator
 from strictyaml import load, YAML
 
 
@@ -22,12 +21,12 @@ PROFILES_PATH = Path(config.get("profiles", "profiles_path"))
 
 def check_path(value):
     """
-    Checa se é um path válido
+    Check if is a valid path
     """
 
     if os.path.exists(value):
         return value
-    raise ValueError(f"Path inválido: {value}")
+    raise ValueError(f"Invalid path: {value}")
 
 
 class DatasetConfig(BaseModel):
@@ -35,7 +34,7 @@ class DatasetConfig(BaseModel):
     Dataset config.
     """
 
-    COM_LABEL: bool = True
+    WITH_LABEL: bool = True
     IMAGES_PATH: str
 
     _validator_IMAGES_PATH = validator("IMAGES_PATH", pre=True, allow_reuse=True)(
@@ -45,10 +44,10 @@ class DatasetConfig(BaseModel):
 
 class FiftyoneConfig(BaseModel):
     """
-    Configurações para rodar o fiftyone.
+    Configurations to run fiftyone.
     """
 
-    NOME_DATASET: str
+    NAME_DATASET: str
 
     KEY_FIELD_CSV_LABEL: str
     KEY_FIELD_CSV_METADADOS: str
@@ -66,7 +65,7 @@ class FiftyoneConfig(BaseModel):
     )
 
     TYPE_LABEL: str
-    FIELD_LABEL: str
+    FIELD_LABEL: List[str]
     FIELD_METADADOS: List[str]
 
     @validator("TYPE_LABEL")
@@ -115,6 +114,6 @@ def create_and_validate_config(profile: str) -> Config:
         dataset_config=DatasetConfig(**parsed_config_dict),
         fiftyone_config=FiftyoneConfig(**parsed_config_dict),
     )
-    print(f"configuração: {_config}")
+    print(f"configuration: {_config}")
 
     return _config

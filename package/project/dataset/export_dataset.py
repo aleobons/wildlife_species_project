@@ -1,4 +1,4 @@
-""" Script para exportar o dataset. """
+""" Script to export the dataset. """
 import argparse
 
 from project.dataset.oper_dataset import export_dataset
@@ -11,30 +11,30 @@ def main():
         "--profile",
         type=str,
         required=True,
-        help="nome do arquivo de configuração",
+        help="configuration filename",
     )
     parser.add_argument(
         "--export_dir",
         type=str,
         required=True,
-        help="path para o diretório de exportação do dataset",
+        help="path to export folder of the dataset",
     )
     parser.add_argument(
         "--only_metadados",
         type=bool,
         required=False,
-        help="se True, exporta apenas os metadados",
+        help="whether True, export only the metadata",
     )
     args = parser.parse_args()
 
     config = create_and_validate_config(profile=args.profile)
 
-    name_dataset = config.anotacao_config.NOME_DATASET
+    name_dataset = config.fiftyone_config.NOME_DATASET
 
     export_dataset(
         name_dataset=name_dataset,
         export_dir=args.export_dir,
-        fields_metadados=config.anotacao_config.FIELD_METADADOS,
+        fields_metadados=config.fiftyone_config.FIELD_METADADOS,
         only_metadados=args.only_metadados,
     )
 

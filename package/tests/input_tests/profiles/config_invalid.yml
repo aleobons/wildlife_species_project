@@ -1,9 +1,9 @@
 # Datasets
-COM_LABEL: False
+WITH_LABEL: False
 IMAGES_PATH: erro
 
 # Fiftyone
-NOME_DATASET: dataset_test
+NAME_DATASET: dataset_test
 
 KEY_FIELD_CSV_LABEL: id
 KEY_FIELD_CSV_METADADOS: id

@@ -1,8 +1,8 @@
-# Instruções para compilação do pacote
+# Guidelines to package compilation
 
-## Instalação
+## Installation
 
-No diretório raiz do projeto, execute os comandos:
+In the project root, run these commands:
 
 ```bash	
 python setup.py build
@@ -21,5 +21,5 @@ pip install .
 ## Build docker image
 
 ```bash
-docker build -t aleobons/wildlife:0.2 .
+docker build -t aleobons/wildlife:0.1 .
 ```

@@ -1,10 +1,10 @@
-""" Script para carregar um dataset. """
+""" Script to load a dataset. """
 import argparse
 import pathlib
 
 from project.dataset.oper_dataset import (
     load_dataset,
-    salva_ids_selecionados,
+    save_selected_ids,
 )
 from project.core_config import create_and_validate_config
 
@@ -15,66 +15,66 @@ def main():
         "--profile",
         type=str,
         required=True,
-        help="nome do arquivo de configuração",
+        help="configuration filename",
     )
     parser.add_argument(
-        "--nome_dataset",
+        "--name_dataset",
         type=str,
         required=False,
-        help="nome do dataset para abrir ou criar",
+        help="dataset name to load or create",
     )
     parser.add_argument(
-        "--novo_dataset",
+        "--new_dataset",
         type=bool,
         default=False,
-        help="indica se o dataset deve ser criado (novo = True) ou aberto",
+        help="whether a dataset will be created (new = True) or loaded (new = False)",
     )
     parser.add_argument(
         "--path_dataset",
         type=pathlib.Path,
         required=False,
-        help="path para o dataset quando for necessário criar um novo",
+        help="path to dataset when it'll created from csv metadata",
     )
     parser.add_argument(
         "--temp_dataset",
         type=bool,
         default=False,
-        help="indicar se o dataset deve ser criado temporariamente",
+        help="whether the dataset will be created temporarily",
     )
 
     parser.add_argument(
         "--launch_fiftyone",
         type=bool,
         default=False,
-        help="indicar se vai subir o app do fiftyone",
+        help="whether the fiftyone app will be launched",
     )
 
     parser.add_argument(
         "--force_dataset_replacement",
         type=bool,
         default=False,
-        help="indicar se vai substituir o dataset caso já exista",
+        help="whether the dataset will be replaced, if it already exists",
     )
 
     parser.add_argument(
-        "--path_ids_selecionados",
+        "--path_selectd_ids",
         type=str,
         required=False,
-        help="path para o arquivo txt com os ids selecionados durante a sessão do fiftyone",
+        help="path to txt file with the selected ids through fiftyone season",
     )
 
     args = parser.parse_args()
     config = create_and_validate_config(profile=args.profile)
 
-    if args.nome_dataset is None:
-        args.nome_dataset = config.anotacao_config.NOME_DATASET
+    if args.name_dataset is None:
+        args.nome_dataset = config.fiftyone_config.NAME_DATASET
 
     if args.path_dataset is None:
         args.path_dataset = config.dataset_config.SHAPES_PATH
 
     _, session = load_dataset(
-        name_dataset=args.nome_dataset,
-        novo_dataset=args.novo_dataset,
+        name_dataset=args.name_dataset,
+        new_dataset=args.new_dataset,
         path_dataset=args.path_dataset,
         temp_dataset=args.temp_dataset,
         launch_fiftyone=args.launch_fiftyone,
@@ -82,12 +82,10 @@ def main():
     )
 
     if session:
-        input("\nPressione qualquer tecla para salvar os ids selecionados\n")
+        input("\nTap any key to save the selected ids\n")
 
-        if args.path_ids_selecionados is not None:
-            salva_ids_selecionados(
-                session=session, path_ids_file=args.path_ids_selecionados
-            )
+        if args.path_selectd_ids is not None:
+            save_selected_ids(session=session, path_ids_file=args.path_selectd_ids)
 
 
 if __name__ == "__main__":

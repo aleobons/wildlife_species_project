@@ -1,8 +1,8 @@
-""" Script para anotar samples do dataset. """
+""" Script to annotate samples from dataset. """
 import argparse
 import pathlib
 
-from project.dataset.oper_dataset import anota_samples
+from project.dataset.oper_dataset import annotate_samples
 from project.core_config import create_and_validate_config
 
 
@@ -12,38 +12,38 @@ def main():
         "--profile",
         type=str,
         required=True,
-        help="nome do arquivo de configuração",
+        help="configuration filename",
     )
     parser.add_argument(
         "--path_ids_txt",
         type=str,
         required=False,
-        help="path para o arquivo csv com os ids",
+        help="path to txt filne with the ids of the samples to be annotated",
     )
     parser.add_argument(
         "--ids",
         type=str,
         nargs="*",
         required=False,
-        help="ids a serem anotados",
+        help="ids of the samples to be annotated",
     )
     parser.add_argument(
         "--url",
         type=str,
         default="http://localhost:8080/",
-        help="url do CVAT",
+        help="CVAT url",
     )
     parser.add_argument(
-        "--key_anotacao",
+        "--key_annotation",
         type=str,
         required=False,
-        help="nome para a execução da anotação",
+        help="name to annotation run",
     )
     args = parser.parse_args()
 
     config = create_and_validate_config(profile=args.profile)
 
-    name_dataset = config.anotacao_config.NOME_DATASET
+    name_dataset = config.fiftyone_config.NAME_DATASET
 
     if args.ids is not None:
         list_ids = args.ids
@@ -51,12 +51,12 @@ def main():
         path_ids_txt = pathlib.Path(args.path_ids_txt)
         list_ids = path_ids_txt.read_text().splitlines()
 
-    anota_samples(
-        nome_dataset=name_dataset,
+    annotate_samples(
+        name_dataset=name_dataset,
         list_ids=list_ids,
         url=args.url,
         launch_editor=True,
-        anno_key=args.key_anotacao,
+        anno_key=args.key_annotation,
     )
 
 

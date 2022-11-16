@@ -26,12 +26,12 @@ def test_config_validation_raises_error_for_invalid_config():
         create_and_validate_config(profile)
 
     # Then
-    assert "Path inválido" in str(excinfo.value)
+    assert "Invalid path" in str(excinfo.value)
 
 
 def test_missing_config_field_raises_validation_error():
     # Given
-    profile = "config_incompleto"
+    profile = "config_incomplete"
 
     # When
     with pytest.raises(ValidationError) as excinfo:
